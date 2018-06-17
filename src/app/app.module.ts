@@ -3,16 +3,21 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { TilesGridComponent } from './tiles-grid/tiles-grid.component';
+import { GameService } from './game/game.service';
+import { TileComponent } from './tile/tile.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TilesGridComponent,
+    TileComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [GameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

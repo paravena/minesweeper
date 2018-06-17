@@ -1,0 +1,8 @@
+.tiles-grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 640px;
+  height: 640px;
+  border: 1px solid #000;
+  background-color: #eee;
+}
