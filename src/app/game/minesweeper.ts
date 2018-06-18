@@ -19,3 +19,9 @@ const shuffle = (tiles: Array<Tile>) => {
 export const initGame = () => {
   return initTiles(NUMBER_OF_ROWS, NUMBER_OF_COLS, NUMBER_OF_MINES);
 };
+
+export const revealTile = (tile: Tile, tiles: Array<Tile>) => {
+  const foundTile = R.find(R.equals(tile))(tiles);
+  foundTile.visible = true;
+};
+

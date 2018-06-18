@@ -1,12 +1,15 @@
-import {Injectable} from '@angular/core';
-import * as minesWeeper from './minesweeper';
+import { Injectable } from '@angular/core';
+import { Tile } from './tile.model';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../app.reducer';
+import * as Game from '../game/game.actions';
 
 @Injectable()
 export class GameService {
-  constructor() {
+  constructor(private store: Store<fromRoot.State>) {
   }
 
-  public initGame() {
-    return minesWeeper.initGame();
+  revealTile(tile: Tile) {
+    this.store.dispatch(new Game.RevealTileCell(tile));
   }
 }

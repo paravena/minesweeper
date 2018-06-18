@@ -1,11 +1,25 @@
-import {Tile} from './tile.model';
-import {initGame} from './minesweeper';
+import { Tile } from './tile.model';
+import {GameActions, REVEAL_TILE_CELL} from './game.actions';
+import * as minesWeeper from './minesweeper';
 
 export interface State {
-  game: Array<Tile>;
-};
+  tiles: Array<Tile>;
+}
 
 const initialState: State = {
-  game: initGame()
+  tiles: minesWeeper.initGame()
 };
 
+export function gameReducer(state = initialState, action: GameActions) {
+  switch (action.type) {
+    case REVEAL_TILE_CELL:
+      minesWeeper.revealTile(action.payload, state.tiles);
+      return {
+        ...state
+      };
+    default:
+      return state;
+  }
+}
+
+export const getTiles = (state: State) => state.tiles;
