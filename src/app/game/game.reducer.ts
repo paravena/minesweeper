@@ -13,7 +13,7 @@ const initialState: State = {
 export function gameReducer(state = initialState, action: GameActions) {
   switch (action.type) {
     case REVEAL_TILE_CELL:
-      minesWeeper.revealTile(action.payload, state.tiles);
+      state.tiles = minesWeeper.revealTile(action.payload, state.tiles);
       return {
         ...state
       };

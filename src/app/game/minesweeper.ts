@@ -6,10 +6,9 @@ const NUMBER_OF_COLS = 16;
 const NUMBER_OF_MINES = 64;
 
 const initTiles = (rows: number, cols: number, mines: number) => {
-  return shuffle(R.concat(
-    R.repeat({visible: false, isMine: true} as Tile, mines),
-    R.repeat({visible: false, isMine: false} as Tile, rows * cols - mines)
-  ));
+  let tiles = R.times(() => new Tile(true), mines);
+  tiles = R.concat(R.times(() => new Tile(false), rows * cols - mines), tiles);
+  return shuffle(tiles);
 };
 
 const shuffle = (tiles: Array<Tile>) => {
@@ -20,8 +19,11 @@ export const initGame = () => {
   return initTiles(NUMBER_OF_ROWS, NUMBER_OF_COLS, NUMBER_OF_MINES);
 };
 
-export const revealTile = (tile: Tile, tiles: Array<Tile>) => {
-  const foundTile = R.find(R.equals(tile))(tiles);
-  foundTile.visible = true;
+export const revealTile = (tileIndex: number, tiles: Array<Tile>) => {
+  tiles[tileIndex].visible = true;
+  if (!tiles[tileIndex].isMine) {
+    tiles[tileIndex].mineCounter++;
+  }
+  return tiles.slice();
 };
 

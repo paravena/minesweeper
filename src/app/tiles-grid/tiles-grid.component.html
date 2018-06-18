@@ -1,5 +1,5 @@
 <div class="tiles-grid">
-  <div *ngFor="let tile of tiles$ | async">
-    <app-tile [tile]="tile"></app-tile>
+  <div *ngFor="let tile of tiles$ | async; let i = index">
+    <app-tile [tile]="tile" [index]="i"></app-tile>
   </div>
 </div>

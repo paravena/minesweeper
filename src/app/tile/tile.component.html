@@ -1,3 +1,4 @@
 <div class="tile" (click)="revealTile()">
   <i class="fa fa-bomb" *ngIf="tile.isMine && tile.visible"></i>
+  <span *ngIf="!tile.isMine && tile.mineCounter > 0">{{tile.mineCounter}}</span>
 </div>

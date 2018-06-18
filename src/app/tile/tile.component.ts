@@ -9,6 +9,7 @@ import { GameService } from '../game/game.service';
 })
 export class TileComponent implements OnInit {
   @Input() tile: Tile;
+  @Input() index: number;
 
   constructor(private gameService: GameService) { }
 
@@ -16,6 +17,6 @@ export class TileComponent implements OnInit {
   }
 
   revealTile() {
-    this.gameService.revealTile(this.tile);
+    this.gameService.revealTile(this.index);
   }
 }
