@@ -1,4 +1,5 @@
-<div class="tile" (click)="revealTile()">
-  <i class="fa fa-bomb" *ngIf="tile.isMine && tile.visible"></i>
-  <span *ngIf="!tile.isMine && tile.mineCounter > 0">{{tile.mineCounter}}</span>
+<div class="tile" (click)="revealTile()" [ngClass]="{'tile-visible' : tile.visible}">
+  <i class="fa fa-bomb" *ngIf="tile.isMine"></i>
+  <span *ngIf="!tile.isMine && tile.mineCounter > 0"
+        [ngClass]="{'tile-green': tile.mineCounter === 2, 'tile-red': tile.mineCounter > 2}">{{tile.mineCounter}}</span>
 </div>

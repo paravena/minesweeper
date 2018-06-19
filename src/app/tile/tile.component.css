@@ -6,3 +6,19 @@
   align-items: center;
   justify-content: center;
 }
+
+.tile-visible {
+  border: 2px solid blue;
+  width: 36px;
+  height: 36px;
+}
+
+.tile-green {
+  color: green;
+  font-weight: bold;
+}
+
+.tile-red {
+  color: red;
+  font-weight: bold;
+}
