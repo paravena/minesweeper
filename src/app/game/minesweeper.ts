@@ -27,7 +27,9 @@ const indexExists = R.both(R.lte(0), R.gte( NUMBER_OF_COLS * NUMBER_OF_ROWS - 1)
 const isAMine = R.curry((tiles: Array<Tile>, index: number) => tiles[index].isMine);
 const tileIsAMine = (tile: Tile) => tile.isMine;
 const tileIsNotAMine = R.compose(R.not, tileIsAMine);
+const tileIsVisible = (tile: Tile) => tile.visible;
 const isNotVisible = R.curry((tiles: Array<Tile>, index: number) => !tiles[index].visible);
+const setTileVisible = (tile: Tile) => tile.visible = true;
 
 const indexExistAndHasNotBeenRevealed = R.curry((tiles: Array<Tile>, index: number) => {
   return R.both(indexExists, isNotVisible(tiles))(index);
@@ -89,6 +91,15 @@ const getMineCounter = (tiles: Array<Tile>, index: number) => {
   return R.length(R.filter(tileIsAMine, neighbors(tiles, index)));
 };
 
+const isWinGame = (tiles: Array<Tile>) => {
+  const numberOfVisibleTiles = R.filter(R.both(tileIsNotAMine, tileIsVisible), tiles).length;
+  return numberOfVisibleTiles === NUMBER_OF_COLS * NUMBER_OF_ROWS - NUMBER_OF_MINES;
+};
+
+const isGameOver = (tiles: Array<Tile>) => {
+  const numberOfVisibleTiles = R.filter(R.both(tileIsAMine, tileIsVisible), tiles).length;
+  return numberOfVisibleTiles > 0;
+};
 
 const revealAdjacentTiles = R.curry((tiles: Array<Tile>, index: number) => {
   const mineCounter = getMineCounter(tiles, index);
@@ -104,8 +115,8 @@ const revealAdjacentTiles = R.curry((tiles: Array<Tile>, index: number) => {
 });
 
 const gameOver = R.curry((tiles: Array<Tile>, index: number) => {
-  console.log('game over');
-  return tiles;
+  R.forEach(setTileVisible, R.filter(tileIsAMine, tiles));
+  return tiles.slice();
 });
 
 export const initGame = () => {
@@ -115,6 +126,10 @@ export const initGame = () => {
 export const revealTile = (index: number, tiles: Array<Tile>) => {
   tiles[index].visible = true;
   tiles = R.ifElse(isAMine(tiles), gameOver(tiles), revealAdjacentTiles(tiles))(index);
-  return tiles.slice();
+  const status = isGameOver(tiles) ? 'game over' : isWinGame(tiles) ? 'win' : 'play';
+  return {
+    tiles,
+    status
+  };
 };
 

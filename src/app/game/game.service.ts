@@ -11,4 +11,8 @@ export class GameService {
   revealTile(tileIndex: number) {
     this.store.dispatch(new Game.RevealTileCell(tileIndex));
   }
+
+  startNewGame() {
+    this.store.dispatch(new Game.StartNewGame());
+  }
 }

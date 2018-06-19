@@ -5,9 +5,10 @@ import { AppComponent } from './app.component';
 import { TilesGridComponent } from './tiles-grid/tiles-grid.component';
 import { GameService } from './game/game.service';
 import { TileComponent } from './tile/tile.component';
-import {StoreModule} from '@ngrx/store';
-import {reducers} from './app.reducer';
-
+import { StoreModule } from '@ngrx/store';
+import { MatButtonModule, MatSnackBarModule, MatToolbarModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { reducers} from './app.reducer';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,11 @@ import {reducers} from './app.reducer';
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot(reducers)
+    BrowserAnimationsModule,
+    StoreModule.forRoot(reducers),
+    MatButtonModule,
+    MatSnackBarModule,
+    MatToolbarModule
   ],
   providers: [GameService],
   bootstrap: [AppComponent]

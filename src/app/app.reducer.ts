@@ -11,4 +11,5 @@ export const reducers: ActionReducerMap<State> = {
 
 export const getGameState = createFeatureSelector<fromGame.State>('game');
 export const getTiles = createSelector(getGameState, fromGame.getTiles);
+export const getStatus = createSelector(getGameState, fromGame.getStatus);
 
